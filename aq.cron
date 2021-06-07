@@ -1,0 +1,6 @@
+# m h  dom mon dow   command
+
+0 17 * * 2 ~/bin/hour.radio http://nthmost.net:8000/mutiny-studio
+0 13 * * 1 ~/bin/shuffle.radio radioeleven
+05 */3 * * * ~/bin/stationId
+0 * * * * ~/werk/radioeleven/bin/radio.archive
