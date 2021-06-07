@@ -1,4 +1,5 @@
-pushd ~/radio/collections/archive
+tmpdir=$(mktemp -d)
+pushd $tmpdir
 
 export EPOCH=$(date +"%Y-%A%-B-%d.%H%M")
 
@@ -22,4 +23,11 @@ file 'intro.mp3'
 file 'tmp.mp3'
 EOF
 
-ffmpeg -f concat -i confiles.txt -i metadatafile1.txt -map_metadata 1 -id3v2_version 3 -write_id3v1 1 -ar 44100 -ac 2 -c copy -vn -c:a mp3 -b:a 128k -f mp3 radioeleven-${EPOCH}.mp3
+#ffmpeg -f concat -i confiles.txt -i metadatafile1.txt -map_metadata 1 -id3v2_version 3 -write_id3v1 1 -ar 44100 -ac 2 -c copy -vn -c:a mp3 -b:a 128k -f mp3 radioeleven-${EPOCH}.mp3
+ffmpeg -f concat -i confiles.txt -ar 44100 -ac 2 -c copy -b:a 128k -f mp3 out-radioeleven-${EPOCH}.mp3
+
+mv out-* ~/radio/collections/archive
+popd
+rm $tmpdir/* && rmdir $tmpdir
+
+
