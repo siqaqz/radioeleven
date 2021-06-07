@@ -1,6 +1,11 @@
+MAILTO="siqaqz@gmail.com"
+SHELL=/bin/bash
+HOME=/home/aq
 # m h  dom mon dow   command
 
-0 17 * * 2 ~/bin/hour.radio http://nthmost.net:8000/mutiny-studio
-0 13 * * 1 ~/bin/shuffle.radio radioeleven
+0 10 * * 2 ~/bin/hour.radio http://nthmost.net:8000/mutiny-studio
+0 6 * * 1 ~/bin/shuffle.radio radioeleven
+0 11 * * 1 ~/bin/shuffle.radio radioeleven
 05 */3 * * * ~/bin/stationId
 0 * * * * ~/werk/radioeleven/bin/radio.archive
+#* * * * * ls ~>~/ls.out
