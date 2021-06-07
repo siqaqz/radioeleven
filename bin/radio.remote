@@ -1,0 +1,1 @@
+ffmpeg -d -re -i "`youtube-dl -f bestaudio -g ${1}`" -vn -c:a mp3 -b:a 128k -f mp3 -|~/bin/aux.pl

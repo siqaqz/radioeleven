@@ -1,0 +1,18 @@
+pushd ~/radio/collections/archive
+
+export EPOCH=$(date +"%Y-%A%-B-%d.%H%M")
+
+cat >speech.txt <<EOF
+beep
+you're listening to radio eleven archive captured 
+$(date +"%A %B %d and %H:%M")
+this is the voice of aqua q.
+. . .
+EOF
+
+uri=$(curl -s -X POST http://www.fromtexttospeech.com/ -H "Content-Type: application/x-www-form-urlencoded" --data-urlencode "input_text@speech.txt" -d "language=US%20English&voice=IVONA%20Kimberly22&speed=0&action=process_text&create_audio_file=1"|grep file=/output/|cut -d\' -f2|cut -d= -f2|grep output)
+wget "http://www.fromtexttospeech.com/${uri}" -O id-${EPOCH}.mp3
+ffmpeg -d -re -i "id-${EPOCH}.mp3" -i bg.mp3 -filter_complex amix=inputs=2:dropout_transition=2 -vn -c:a mp3 -b:a 128k -f mp3 -t 20 intro.mp3
+
+
+ffmpeg -d -re -i "https://s5.radio.co/s5e77746c9/listen" -t 36 -i intro.mp3 -filter_complex amix=inputs=2:duration=last:dropout_transition=2 -vn -c:a mp3 -b:a 128k -f mp3 radioeleven-${EPOCH}.mp3
