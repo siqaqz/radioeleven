@@ -12,14 +12,14 @@ EOF
 
 uri=$(curl -s -X POST http://www.fromtexttospeech.com/ -H "Content-Type: application/x-www-form-urlencoded" --data-urlencode "input_text@speech.txt" -d "language=US%20English&voice=IVONA%20Kimberly22&speed=0&action=process_text&create_audio_file=1"|grep file=/output/|cut -d\' -f2|cut -d= -f2|grep output)
 wget "http://www.fromtexttospeech.com/${uri}" -O id-${EPOCH}.mp3
-#ffmpeg -d -re -i "id-${EPOCH}.mp3" -i bg.mp3 -filter_complex amix=inputs=2:dropout_transition=2 -vn -c:a mp3 -b:a 128k -f mp3 -t 20 intro.mp3 -y
+ffmpeg -d -re -i "id-${EPOCH}.mp3" -vn -c:a mp3 -b:a 128k -f mp3 -t 20 -ar 44100 -ac 2 44100 intro.mp3 -y
 
 ffmpeg -d -re -i "`youtube-dl -f bestaudio -g https://s5.radio.co/s5e77746c9/listen`" -t 3600 -vn -c:a mp3 -b:a 128k -f mp3 tmp.mp3 -y
 
 
 cat >confiles.txt <<EOF
-file 'id-${EPOCH}.mp3'
+file 'intro.mp3'
 file 'tmp.mp3'
 EOF
 
-ffmpeg -f concat -i confiles.txt -i metadatafile1.txt -map_metadata 1 -id3v2_version 3 -write_id3v1 1 -c copy radioeleven-${EPOCH}.mp3
+ffmpeg -f concat -i confiles.txt -i metadatafile1.txt -map_metadata 1 -id3v2_version 3 -write_id3v1 1 -ar 44100 -ac 2 -c copy -vn -c:a mp3 -b:a 128k -f mp3 radioeleven-${EPOCH}.mp3

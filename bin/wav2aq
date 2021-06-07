@@ -1,0 +1,10 @@
+pushd ~/radio/collections/wav2aq
+export EPOCH=$(date +"%Y-%A%-B-%d.%H%M")
+
+ffmpeg -d -re -i "`youtube-dl -f bestaudio -g ${1}`" -t 180 -ar 16000 -ac 1 file.wav -y
+pocketsphinx_continuous -infile file.wav 2>pocketsphinx.log >speech.txt
+
+#uri=$(curl -s -X POST http://www.fromtexttospeech.com/ -H "Content-Type: application/x-www-form-urlencoded" --data-urlencode "input_text@speech.txt" -d "language=US%20English&voice=IVONA%20Joey22&speed=-1&action=process_text&create_audio_file=1"|grep file=/output/|cut -d\' -f2|cut -d= -f2|grep output)
+
+uri=$(curl -s -X POST http://www.fromtexttospeech.com/ -H "Content-Type: application/x-www-form-urlencoded" --data-urlencode "input_text@speech.txt" -d "language=US%20English&voice=IVONA%20Joey22&speed=-1&action=process_text&create_audio_file=1"|grep file=/output/|cut -d\' -f2|cut -d= -f2|grep output)
+wget "http://www.fromtexttospeech.com/${uri}" -O id-${EPOCH}.mp3
