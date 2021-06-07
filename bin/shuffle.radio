@@ -1,1 +1,1 @@
-ffmpeg -d -re -i "`file ~aq/radio/collections/${1}/out-*|shuf -n1|cut -d: -f1`" -af loudnorm=I=-16:TP=-1.35:LRA=11 -vn -c:a mp3 -b:a 128k -f mp3 -|~/bin/aux.pl
+ffmpeg -d -re -i "`find ~aq/radio/collections/${1}/out-*|shuf -n1`" -af loudnorm=I=-16:TP=-1.35:LRA=11 -vn -c:a mp3 -b:a 128k -f mp3 -|~/bin/aux.pl
