@@ -6,6 +6,9 @@ HOME=/home/aq
 0 10 * * 2 ~/bin/hour.radio http://nthmost.net:8000/mutiny-studio
 0 6 * * 1 ~/bin/shuffle.radio radioeleven
 0 11 * * 1 ~/bin/shuffle.radio radioeleven
-05 */3 * * * ~/bin/stationId
+0 17 * * * ~/bin/shuffle.radio wav2aq
+0 3 * * * ~/bin/shuffle.radio remote
+58 */3 * * * ~/bin/stationId
 0 * * * * ~/werk/radioeleven/bin/radio.archive
+0 12 * * * timeout 1h ~/werk/radioeleven/bin/music		
 #* * * * * ls ~>~/ls.out

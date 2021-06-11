@@ -1,0 +1,5 @@
+#!/bin/bash
+
+while [ 1 ]; do {
+	find /srv/aq/c3w/mp3 | shuf -n1 | ~/bin/aux.pl
+}; done
