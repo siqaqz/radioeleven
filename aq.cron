@@ -10,5 +10,6 @@ HOME=/home/aq
 0 3 * * * ~/bin/shuffle.radio remote
 58 */3 * * * ~/bin/stationId
 0 * * * * ~/werk/radioeleven/bin/radio.archive
-0 12 * * * /usr/bin/timeout 1h ~/werk/radioeleven/bin/music		
+0 0,12 * * * /usr/bin/timeout 1h ~/werk/radioeleven/bin/music		
+0 0 * * 1,2,5,7 /usr/bin/timeout 1h ~/werk/radioeleven/bin/music		
 #* * * * * ls ~>~/ls.out
