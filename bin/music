@@ -1,5 +1,7 @@
 #!/bin/bash
 
+cat  ~/radio/collections/txt2aq/out-and\ now\ introducing\ this\ recitation\ of\ an\ hour\ of\ music\,\ thusly\ codified\ to\ your\ 128\ bitrate\ pleasureity\,\ this\ is\ now\ and\ again\ daily\,\ c\ 3\ w\ from\ the\ labs\ of\ aqua\ q-2021-SaturdayJune-12.0029.mp3 | ~/bin/aux.pl
+
 while [ 1 ]; do {
-	find /srv/aq/c3w/mp3 | shuf -n1 | ~/bin/aux.pl
+	cat $(find /srv/aq/c3w/mp3 | shuf -n1) | ~/bin/aux.pl
 }; done
